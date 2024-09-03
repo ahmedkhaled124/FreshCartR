@@ -2,6 +2,12 @@
 <div class="container mt-5 mb-5">
   <div class="row h-100 justify-content-center align-content-center  ">
     <div class="signupform">
+      @if(errmsg){
+        <div class="alert alert-danger">
+          {{errmsg}}
+        </div>
+
+      }
       <div class=" text-center ">
         <h1 class="big-font">Register</h1>
       </div>
@@ -78,7 +84,7 @@
           @if (registerForm.get('phone')?.errors && registerForm.get('phone')?.touched) {
             <div class="alert alert-danger p-0 m-0">
               @if (registerForm.get('phone')?.errors?.['required'])
-              {<p class="p-1 m-0">pattern is required</p>}
+              {<p class="p-1 m-0">phone is required</p>}
               @else if (registerForm.get('phone')?.errors?.['pattern'])
               {       <p class="p-1 m-0">start with 010 011 012 015</p>
               <p class="p-1 m-0">max length is 11 numbers</p>}
@@ -88,7 +94,10 @@
 
         </div>
         <div class="col-md-10 offset-1">
-          <button [disabled]="registerForm.invalid" type="submit" class="btn btn-main">Register</button>
+          <button [disabled]="registerForm.invalid" type="submit" class="btn btn-main">
+            @if(isLoading)
+            {<span> Register <i class="fa fa-spin fa-spinner"></i> </span>}
+            @else{<span>Register</span>}</button>
         </div>
       </form>
     </div>

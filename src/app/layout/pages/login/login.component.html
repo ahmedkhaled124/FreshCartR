@@ -1,1 +1,58 @@
-<p>login works!</p>
+
+<div class="container mt-5 mb-5">
+  <div class="row h-100 justify-content-center align-content-center  ">
+    <div class="signupform">
+      @if(errmsg){
+        <div class="alert alert-danger">
+          {{errmsg}}
+        </div>
+      }
+      <div class=" text-center ">
+        <h1 class="big-font">Login</h1>
+      </div>
+      <form [formGroup]="loginForm" (ngSubmit)="submitlogin()" class="row g-3" >
+
+        <div class=" offset-1 col-md-10">
+          <div class="form-floating ">
+            <input type="email" formControlName="email" class=" form-control " id="email"  required autocomplete="email">
+            <label for="email">Email Address</label>
+          </div>
+          @if (loginForm.get('email')?.errors && loginForm.get('email')?.touched) {
+            <div class="alert alert-danger p-0 m-0">
+              @if (loginForm.get('email')?.errors?.['required'])
+              {<p class="p-1 m-0">email is required</p>}
+              @else if (loginForm.get('email')?.errors?.['email'])
+              {<p class="p-1 m-0">plece enter valid email</p>}
+            </div>
+          }
+
+        </div>
+        <div class="offset-1 col-md-10">
+          <div class="form-floating">
+            <input type="password"  formControlName="password" class="form-control" id="password" required autocomplete="new-password">
+            <label for="password">Password</label>
+          </div>
+          @if (loginForm.get('password')?.errors && loginForm.get('password')?.touched) {
+            <div class="alert alert-danger p-0 m-0">
+              @if (loginForm.get('password')?.errors?.['required'])
+              {<p class="p-1 m-0">password is required</p>}
+              @else if (loginForm.get('password')?.errors?.['pattern'])
+              {<p class="p-1 m-0">password must start with uppercaes letter</p>
+              <p class="p-1 m-0">min length is 8</p>
+              <p class="p-1 m-0">include letters and numbers</p>}
+
+            </div>
+          }
+
+        </div>
+
+        <div class="col-md-10 offset-1">
+          <button [disabled]="loginForm.invalid" type="submit" class="btn btn-main">
+            @if(isLoading)
+            {<span> login <i class="fa fa-spin fa-spinner"></i> </span>}
+            @else{<span>login</span>}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

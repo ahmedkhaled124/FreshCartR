@@ -6,6 +6,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      @if(isLogin == true){
+
         <li class="nav-item">
           <a class="nav-link " routerLink="Home" routerLinkActive="bg-main text-white">Home</a>
         </li>
@@ -22,7 +24,9 @@
           <a class="nav-link" routerLink="Brands" routerLinkActive="bg-main text-white">Brands</a>
         </li>
 
-      </ul>
+
+    }
+    </ul>
       <div class="d-flex gap-3 align-items-center">
       <i class="fab fa-instagram fs-6"></i>
       <i class="fab fa-facebook"></i>
@@ -30,10 +34,15 @@
       <i class="fab fa-twitter"></i>
       <i class="fab fa-linkedin"></i>
       <i class="fab fa-youtube"></i>
-      <a class="nav-link" routerLink="SignOut" routerLinkActive="active">SignOut</a>
-      <a class="nav-link" routerLink="Register" routerLinkActive="active">Register</a>
-      <a class="nav-link" routerLink="login" routerLinkActive="active">login</a>
 
+      @if(isLogin == false)
+        {
+          <a class="nav-link" routerLink="Register" routerLinkActive="active">Register</a>
+          <a class="nav-link" routerLink="login" routerLinkActive="active">login</a>
+        }
+      @else {
+        <a class="nav-link cursor-pointer" routerLink="SignOut" routerLinkActive="active">SignOut</a>
+      }
     </div>
     </div>
   </div>

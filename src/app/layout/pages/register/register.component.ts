@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup , ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../../shared/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +11,9 @@ import { AbstractControl, FormControl, FormGroup , ReactiveFormsModule, Validato
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-
+  constructor(private _AuthService:AuthService , private _Router:Router){}
+  errmsg !:string;
+  isLoading:boolean = false;
   registerForm:FormGroup = new FormGroup({
     name : new FormControl(null ,[Validators.required ,Validators.minLength(3),Validators.maxLength(8)]),
     email : new FormControl(null,[Validators.required,Validators.email]),
@@ -24,12 +28,27 @@ export class RegisterComponent {
         return null;
       }
       else{
-        g.get('repassword')?.setErrors({mismatch:true})
+        g.get('rePassword')?.setErrors({mismatch:true})
         return {mismatch:true};
       }
   }
 
   submitRegister(){
-    console.log(this.registerForm.value);
+    this.isLoading = true;
+    if(this.registerForm.valid){
+      //connect api
+      this._AuthService.signUp(this.registerForm.value).subscribe({
+        next:(res)=>{
+          this.isLoading = false;
+          console.log(res);
+          this._Router.navigate(["/login"]);
+        },
+        error:(err) => {
+          console.log(err);
+          this.isLoading = false;
+          this.errmsg = err.error.message;
+        }
+      });
+    }
   }
 }
