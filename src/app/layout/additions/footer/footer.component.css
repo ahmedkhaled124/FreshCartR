@@ -1,0 +1,18 @@
+.pay img
+{
+
+  width: 50px;
+  height: 35px;
+}
+.app img {
+
+
+  width: 150px;
+  height: 35px;
+}
+.app{
+  display: flex;
+  align-items: flex-start;
+  text-align: center;
+}
+

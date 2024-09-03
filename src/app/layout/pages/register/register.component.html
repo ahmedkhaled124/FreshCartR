@@ -1,0 +1,97 @@
+
+<div class="container mt-5 mb-5">
+  <div class="row h-100 justify-content-center align-content-center  ">
+    <div class="signupform">
+      <div class=" text-center ">
+        <h1 class="big-font">Register</h1>
+      </div>
+      <form [formGroup]="registerForm" (ngSubmit)="submitRegister()" class="row g-3" >
+        <div class=" offset-1 col-md-10">
+          <div class="form-floating">
+            <input type="text" formControlName="name" class="form-control " id="user" value="" required autocomplete="name">
+            <label for="name">Name</label>
+          </div>
+          @if (registerForm.get('name')?.errors && registerForm.get('name')?.touched) {
+          <div class="alert alert-danger p-0 m-0">
+            @if (registerForm.get('name')?.errors?.['required'])
+            {<p class="p-1 m-0">name is required</p>}
+            @else if (registerForm.get('name')?.errors?.['minlength'])
+            {<p class="p-1 m-0">name min length is : 3</p>}
+            @else if (registerForm.get('name')?.errors?.['minlength'])
+            { <p class="p-1 m-0">name max length is : 8</p>}
+          </div>
+        }
+        </div>
+        <div class=" offset-1 col-md-10">
+          <div class="form-floating ">
+            <input type="email" formControlName="email" class=" bg-transparent form-control " id="email" value="" required autocomplete="email">
+            <label for="email">Email Address</label>
+          </div>
+          @if (registerForm.get('email')?.errors && registerForm.get('email')?.touched) {
+            <div class="alert alert-danger p-0 m-0">
+              @if (registerForm.get('email')?.errors?.['required'])
+              {<p class="p-1 m-0">email is required</p>}
+              @else if (registerForm.get('email')?.errors?.['email'])
+              {<p class="p-1 m-0">plece enter valid email</p>}
+            </div>
+          }
+
+        </div>
+        <div class="offset-1 col-md-10">
+          <div class="form-floating">
+            <input type="password"  formControlName="password" class=" bg-transparent  form-control " id="password" required autocomplete="new-password">
+            <label for="password">Password</label>
+          </div>
+          @if (registerForm.get('password')?.errors && registerForm.get('password')?.touched) {
+            <div class="alert alert-danger p-0 m-0">
+              @if (registerForm.get('password')?.errors?.['required'])
+              {<p class="p-1 m-0">password is required</p>}
+              @else if (registerForm.get('password')?.errors?.['pattern'])
+              {<p class="p-1 m-0">password must start with uppercaes letter</p>
+              <p class="p-1 m-0">min length is 8</p>
+              <p class="p-1 m-0">include letters and numbers</p>}
+
+            </div>
+          }
+
+        </div>
+        <div class=" offset-1 col-md-10">
+          <div class="form-floating ">
+            <input type="password" formControlName="rePassword" class="bg-transparent  form-control" id="rePassword" required autocomplete="new-password">
+            <label for="rePassword">Confirm Password</label>
+          </div>
+          @if (registerForm.get('rePassword')?.errors && registerForm.get('rePassword')?.touched) {
+            <div class="alert alert-danger p-0 m-0">
+              @if (registerForm.get('rePassword')?.errors?.['required'])
+              {<p class="p-1 m-0">password is required</p>}
+              @else if (registerForm.get('rePassword')?.errors?.['mismatch'])
+              {<p class="p-1 m-0">password not macth</p>}
+            </div>
+          }
+
+        </div>
+        <div class="offset-1 col-md-10 ">
+          <div class="form-floating">
+            <input type="tel" formControlName="phone" maxlength="11" class="form-control bg-transparent" id="phone" required autocomplete="phone">
+            <label for="phone">phone</label>
+          </div>
+          @if (registerForm.get('phone')?.errors && registerForm.get('phone')?.touched) {
+            <div class="alert alert-danger p-0 m-0">
+              @if (registerForm.get('phone')?.errors?.['required'])
+              {<p class="p-1 m-0">pattern is required</p>}
+              @else if (registerForm.get('phone')?.errors?.['pattern'])
+              {       <p class="p-1 m-0">start with 010 011 012 015</p>
+              <p class="p-1 m-0">max length is 11 numbers</p>}
+
+            </div>
+          }
+
+        </div>
+        <div class="col-md-10 offset-1">
+          <button [disabled]="registerForm.invalid" type="submit" class="btn btn-main">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
